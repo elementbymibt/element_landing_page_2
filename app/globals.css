@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --color-bordeaux: #3b0d18;
+  --color-gold: #c9a35d;
+  --color-ivory: #f5f1ea;
+  --color-beige-soft: #efe6d8;
+  --color-beige-mid: #e8ddcc;
+  --color-cream: #f2e8d9;
+  --color-neutral: #ede4d4;
+  --color-muted: #d8cbb8;
+  --color-olive: #5e5a3c;
+  --color-taupe: #8b8072;
+  --color-text: #3e332d;
+  --color-gold-muted: #b8a06a;
+  --color-petrol: #2f4f4a;
+  --shadow-soft: 0 20px 40px rgba(62, 51, 45, 0.08);
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-cream) 100%);
+  color: var(--color-text);
+  font-family: var(--font-body), sans-serif;
+}
+
+.floating-attention {
+  animation: floating-attention 7s ease-in-out infinite;
+}
+
+.floating-attention:hover {
+  animation-play-state: paused;
+  transform: translateY(-2px);
+}
+
+@keyframes floating-attention {
+  0%,
+  84%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 28px rgba(59, 13, 24, 0.2);
+  }
+  88% {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 16px 34px rgba(59, 13, 24, 0.26);
+  }
+  92% {
+    transform: translateY(1px) scale(0.995);
+  }
+  96% {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-slide-up {
+  animation: fade-slide-up 500ms ease-out;
+}
