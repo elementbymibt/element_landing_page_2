@@ -17,9 +17,20 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "ÉLÉMENT by M·I·B·T | 3D Vizualizacija Enterijera",
+  title: {
+    default: "ÉLÉMENT | Besplatne konsultacije enterijera",
+    template: "%s | ÉLÉMENT",
+  },
   description:
     "Odluka pre novca. Prvo vidiš. Onda platiš. 3D vizualizacija prostora pre kupovine.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
