@@ -20,7 +20,6 @@ const proofChips = ["Uštedi vreme", "Sačuvaj živce", "Manje grešaka, manje b
 
 export default function Page() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showFloating, setShowFloating] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -29,27 +28,11 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => setShowFloating(true), 1200);
-    return () => window.clearTimeout(timer);
-  }, []);
-
   return (
     <div className={`${bodyFont.className} min-h-screen bg-[#F5F1EA] text-[#3E332D]`}>
       <style jsx global>{`
         html {
           scroll-behavior: smooth;
-        }
-
-        @keyframes cta-pop-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
         }
 
         @keyframes cta-breathe {
@@ -164,10 +147,6 @@ export default function Page() {
           pointer-events: none;
         }
 
-        .pop-in {
-          animation: cta-pop-in 420ms ease-out both;
-        }
-
         .euro-pop {
           display: inline-block;
           transform-origin: center;
@@ -184,17 +163,11 @@ export default function Page() {
           isScrolled ? "shadow-[0_10px_22px_rgba(62,51,45,0.09)]" : ""
         }`}
       >
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 md:px-8">
+        <div className="mx-auto flex w-full max-w-6xl items-center px-5 py-3 md:px-8">
           <div className="leading-none">
             <p className={`${headingFont.className} text-[2.1rem] tracking-[0.14em] text-[#3B0D18]`}>ÉLÉMENT</p>
             <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.42em] text-[#8B8072]">by M · I · B · T</p>
           </div>
-          <a
-            href={CALENDLY_LINK}
-            className="jump-cta-strong rounded-full bg-[#C9A35D] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#3B0D18] transition-all hover:-translate-y-1 hover:shadow-[0_14px_24px_rgba(59,13,24,0.18)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:px-7"
-          >
-            Zakaži 15 min
-          </a>
         </div>
       </header>
 
@@ -224,10 +197,10 @@ export default function Page() {
                 Pinterest nije plan.
               </h1>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-[#3E332D]/90 md:text-lg">
-                Saveti sa svih strana deluju sigurno — dok ne potrošiš sav novac i shvatiš da u svom domu nisi zadovoljan.
+                Saveti sa svih strana deluju sigurno - dok ne potrošiš sav novac i shvatiš da u svom domu nisi zadovoljan.
               </p>
               <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-[#3B0D18] md:text-base">
-                Predupredi greške koje te koštaju <a href={CALENDLY_LINK} className="euro-pop text-[#C9A35D] underline decoration-[#C9A35D]/70 underline-offset-4">10.000€+</a> i vidi kako izgleda tvoj dom iz snova — pre nego što uđeš u njega.
+                Predupredi greške koje te koštaju <a href={CALENDLY_LINK} className="euro-pop text-[#C9A35D] underline decoration-[#C9A35D]/70 underline-offset-4">10.000€+</a> i vidi kako izgleda tvoj dom iz snova - pre nego što uđeš u njega.
               </p>
 
               <div className="mt-7">
@@ -260,20 +233,6 @@ export default function Page() {
         </section>
       </main>
 
-      <div
-        className={`fixed bottom-4 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 md:bottom-6 md:left-auto md:right-6 md:translate-x-0 ${
-          showFloating ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        <a
-          href={CALENDLY_LINK}
-          className={`jump-cta-strong rounded-full bg-[#C9A35D] px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18] transition-all hover:-translate-y-1 hover:shadow-[0_20px_30px_rgba(59,13,24,0.24)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:text-sm ${
-            showFloating ? "pop-in" : ""
-          }`}
-        >
-          Zakaži 15 min
-        </a>
-      </div>
     </div>
   );
 }
