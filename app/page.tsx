@@ -64,6 +64,21 @@ export default function Page() {
           }
         }
 
+        @keyframes cta-breathe-strong {
+          0%,
+          100% {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 12px 24px rgba(59, 13, 24, 0.25), 0 0 0 0 rgba(201, 163, 93, 0.3);
+          }
+          34% {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 20px 34px rgba(59, 13, 24, 0.3), 0 0 0 12px rgba(201, 163, 93, 0);
+          }
+          54% {
+            transform: translateY(1px) scale(0.99);
+          }
+        }
+
         @keyframes sheen-pass {
           0%,
           74%,
@@ -93,10 +108,28 @@ export default function Page() {
           }
         }
 
+        @keyframes chip-bounce {
+          0%,
+          100% {
+            transform: translateY(0);
+            box-shadow: 0 8px 14px rgba(62, 51, 45, 0.05);
+          }
+          50% {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 18px rgba(62, 51, 45, 0.09);
+          }
+        }
+
         .jump-cta {
           position: relative;
           overflow: hidden;
           animation: cta-breathe 2.8s ease-in-out infinite;
+        }
+
+        .jump-cta-strong {
+          position: relative;
+          overflow: hidden;
+          animation: cta-breathe-strong 1.55s cubic-bezier(0.24, 0.82, 0.28, 1) infinite;
         }
 
         .jump-cta::after {
@@ -115,6 +148,22 @@ export default function Page() {
           pointer-events: none;
         }
 
+        .jump-cta-strong::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          width: 40%;
+          background: linear-gradient(
+            100deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.58) 45%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          transform: translateX(-220%) skewX(-18deg);
+          animation: sheen-pass 4.8s ease-in-out infinite;
+          pointer-events: none;
+        }
+
         .pop-in {
           animation: cta-pop-in 420ms ease-out both;
         }
@@ -122,7 +171,11 @@ export default function Page() {
         .euro-pop {
           display: inline-block;
           transform-origin: center;
-          animation: euro-pulse 5.2s ease-in-out infinite;
+          animation: euro-pulse 2.2s ease-in-out infinite;
+        }
+
+        .chip-soft {
+          animation: chip-bounce 4.2s ease-in-out infinite;
         }
       `}</style>
 
@@ -132,10 +185,13 @@ export default function Page() {
         }`}
       >
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 md:px-8">
-          <span className={`${headingFont.className} text-3xl tracking-[0.16em] text-[#3B0D18]`}>ÉLÉMENT</span>
+          <div className="leading-none">
+            <p className={`${headingFont.className} text-[2.1rem] tracking-[0.14em] text-[#3B0D18]`}>ÉLÉMENT</p>
+            <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.42em] text-[#8B8072]">by M · I · B · T</p>
+          </div>
           <a
             href={CALENDLY_LINK}
-            className="jump-cta rounded-full bg-[#C9A35D] px-4 py-2 text-xs font-semibold uppercase tracking-[0.11em] text-[#3B0D18] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_24px_rgba(59,13,24,0.18)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:px-5"
+            className="jump-cta-strong rounded-full bg-[#C9A35D] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-[#3B0D18] transition-all hover:-translate-y-1 hover:shadow-[0_14px_24px_rgba(59,13,24,0.18)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:px-7"
           >
             Zakaži 15 min
           </a>
@@ -177,7 +233,7 @@ export default function Page() {
               <div className="mt-7">
                 <a
                   href={CALENDLY_LINK}
-                  className="jump-cta inline-flex rounded-full bg-[#3B0D18] px-7 py-3 text-sm font-semibold uppercase tracking-[0.05em] text-[#C9A35D] shadow-[0_14px_24px_rgba(59,13,24,0.2)] transition-all hover:-translate-y-1 hover:shadow-[0_20px_32px_rgba(59,13,24,0.24)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
+                  className="jump-cta-strong inline-flex min-h-16 min-w-[18.5rem] items-center justify-center rounded-[0.85rem] border border-[#2A0711] bg-[#3B0D18] px-10 py-4 text-center text-[1.03rem] font-semibold tracking-[0.06em] text-[#F5F1EA] transition-all hover:-translate-y-1 hover:shadow-[0_20px_32px_rgba(59,13,24,0.24)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
                 >
                   Zakaži BESPLATNE konsultacije (15 min)
                 </a>
@@ -189,22 +245,16 @@ export default function Page() {
 
         <section className="bg-[#EFE6D8]/52">
           <div className="mx-auto w-full max-w-6xl px-5 py-6 md:px-8">
-            <div className="grid gap-3 md:grid-cols-[1fr_1fr_1.2fr_auto]">
-              {proofChips.map((item) => (
+            <div className="grid gap-3 md:grid-cols-3">
+              {proofChips.map((item, index) => (
                 <article
                   key={item}
-                  className="rounded-full border border-[rgba(216,203,184,0.92)] bg-[#F5F1EA]/92 px-4 py-3 text-center text-sm font-semibold text-[#3E332D] shadow-[0_8px_14px_rgba(62,51,45,0.05)]"
+                  className="chip-soft rounded-full border border-[rgba(216,203,184,0.92)] bg-[#F5F1EA]/92 px-4 py-3 text-center text-sm font-semibold text-[#3E332D]"
+                  style={{ animationDelay: `${index * 220}ms` }}
                 >
                   {item}
                 </article>
               ))}
-
-              <a
-                href={CALENDLY_LINK}
-                className="jump-cta inline-flex items-center justify-center rounded-full bg-[#C9A35D] px-5 py-3 text-sm font-semibold uppercase tracking-[0.11em] text-[#3B0D18] shadow-[0_12px_22px_rgba(59,13,24,0.16)] transition-all hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(59,13,24,0.22)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#EFE6D8]"
-              >
-                Zakaži 15 min
-              </a>
             </div>
           </div>
         </section>
@@ -217,7 +267,7 @@ export default function Page() {
       >
         <a
           href={CALENDLY_LINK}
-          className={`jump-cta rounded-full bg-[#C9A35D] px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18] transition-all hover:-translate-y-1 hover:shadow-[0_20px_30px_rgba(59,13,24,0.24)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:text-sm ${
+          className={`jump-cta-strong rounded-full bg-[#C9A35D] px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18] transition-all hover:-translate-y-1 hover:shadow-[0_20px_30px_rgba(59,13,24,0.24)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:text-sm ${
             showFloating ? "pop-in" : ""
           }`}
         >
