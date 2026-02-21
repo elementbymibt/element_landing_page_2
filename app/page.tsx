@@ -144,7 +144,7 @@ export default function Page() {
           <span className={`${headingFont.className} text-3xl tracking-[0.16em] text-[#3B0D18]`}>ÉLÉMENT</span>
           <a
             href={CALENDLY_LINK}
-            className="rounded-full bg-[#C9A35D] px-4 py-2 text-xs font-semibold uppercase tracking-[0.11em] text-[#3B0D18] shadow-[0_10px_18px_rgba(59,13,24,0.14)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_24px_rgba(59,13,24,0.18)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:px-5"
+            className="jump-cta rounded-full bg-[#C9A35D] px-4 py-2 text-xs font-semibold uppercase tracking-[0.11em] text-[#3B0D18] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_24px_rgba(59,13,24,0.18)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B0D18] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA] md:px-5"
           >
             Zakaži 15 min
           </a>
