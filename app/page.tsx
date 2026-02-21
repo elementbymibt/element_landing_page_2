@@ -16,18 +16,7 @@ const bodyFont = Montserrat({
 });
 
 const CALENDLY_LINK = "https://calendly.com/element-by-mibt/bojana";
-
-const proofItems = [
-  "Uštedi vreme",
-  "Sačuvaj živce",
-  "Manje grešaka, manje bacanja novca",
-];
-
-const bullets = [
-  "Vidite prostor pre nego što platite",
-  "Znate granicu pre nego što trošite",
-  "Odluka je mirna, ne impulsivna",
-];
+const proofChips = ["Uštedi vreme", "Sačuvaj živce", "Manje grešaka, manje bacanja novca"];
 
 export default function Page() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,11 +56,11 @@ export default function Page() {
           0%,
           100% {
             transform: translateY(0);
-            box-shadow: 0 14px 28px rgba(59, 13, 24, 0.2), 0 0 0 0 rgba(201, 163, 93, 0.26);
+            box-shadow: 0 14px 28px rgba(59, 13, 24, 0.2), 0 0 0 0 rgba(201, 163, 93, 0.28);
           }
           50% {
             transform: translateY(-4px);
-            box-shadow: 0 20px 34px rgba(59, 13, 24, 0.24), 0 0 0 10px rgba(201, 163, 93, 0);
+            box-shadow: 0 20px 34px rgba(59, 13, 24, 0.24), 0 0 0 11px rgba(201, 163, 93, 0);
           }
         }
 
@@ -83,7 +72,7 @@ export default function Page() {
             opacity: 0;
           }
           80% {
-            opacity: 0.92;
+            opacity: 0.95;
           }
           90% {
             transform: translateX(260%) skewX(-18deg);
@@ -131,6 +120,8 @@ export default function Page() {
         }
 
         .euro-pop {
+          display: inline-block;
+          transform-origin: center;
           animation: euro-pulse 5.2s ease-in-out infinite;
         }
       `}</style>
@@ -172,22 +163,15 @@ export default function Page() {
             </div>
 
             <div className="relative z-10">
-              <h1 className={`${headingFont.className} text-5xl leading-[1.05] text-[#3B0D18] md:text-7xl`}>
-                Jedna pogrešna odluka može da vas košta <span className="euro-pop text-[#C9A35D]">30.000€.</span>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#3B0D18]/66">Ne uči na svom novcu.</p>
+              <h1 className={`${headingFont.className} mt-3 text-6xl leading-[0.9] text-[#3B0D18] md:text-7xl`}>
+                Pinterest nije plan.
               </h1>
               <p className="mt-4 max-w-xl text-base leading-relaxed text-[#3E332D]/90 md:text-lg">
-                Odluke o prostoru se najčešće donose pre nego što vidite posledicu. Mi to menjamo.
+                Saveti sa svih strana deluju sigurno — dok ne potrošiš sav novac i shvatiš da u svom domu nisi zadovoljan.
               </p>
-              <ul className="mt-5 space-y-2.5 text-sm text-[#3E332D]/92 md:text-base">
-                {bullets.map((item) => (
-                  <li key={item} className="flex items-center gap-2.5">
-                    <span className="h-2 w-2 rounded-full bg-[#C9A35D]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-sm font-semibold text-[#3B0D18] md:text-base">
-                Predupredite greške koje vas koštaju <span className="euro-pop text-[#C9A35D]">10.000€+</span> pre nego što ih platite.
+              <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-[#3B0D18] md:text-base">
+                Predupredi greške koje te koštaju <a href={CALENDLY_LINK} className="euro-pop text-[#C9A35D] underline decoration-[#C9A35D]/70 underline-offset-4">10.000€+</a> i vidi kako izgleda tvoj dom iz snova — pre nego što uđeš u njega.
               </p>
 
               <div className="mt-7">
@@ -195,9 +179,9 @@ export default function Page() {
                   href={CALENDLY_LINK}
                   className="jump-cta inline-flex rounded-full bg-[#3B0D18] px-7 py-3 text-sm font-semibold uppercase tracking-[0.05em] text-[#C9A35D] shadow-[0_14px_24px_rgba(59,13,24,0.2)] transition-all hover:-translate-y-1 hover:shadow-[0_20px_32px_rgba(59,13,24,0.24)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
                 >
-                  Zakažite besplatne konsultacije
+                  Zakaži BESPLATNE konsultacije (15 min)
                 </a>
-                <p className="mt-3 text-xs font-medium text-[#3E332D]/65">15 minuta. Bez obaveze. Bez prodaje na silu.</p>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18]/66">Bez obaveze. Konkretno. 15 minuta.</p>
               </div>
             </div>
           </div>
@@ -206,7 +190,7 @@ export default function Page() {
         <section className="bg-[#EFE6D8]/52">
           <div className="mx-auto w-full max-w-6xl px-5 py-6 md:px-8">
             <div className="grid gap-3 md:grid-cols-[1fr_1fr_1.2fr_auto]">
-              {proofItems.map((item) => (
+              {proofChips.map((item) => (
                 <article
                   key={item}
                   className="rounded-full border border-[rgba(216,203,184,0.92)] bg-[#F5F1EA]/92 px-4 py-3 text-center text-sm font-semibold text-[#3E332D] shadow-[0_8px_14px_rgba(62,51,45,0.05)]"
