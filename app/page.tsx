@@ -17,6 +17,8 @@ const bodyFont = Montserrat({
 
 const BOOKING_LINK = "/book";
 const proofChips = ["Uštedi vreme", "Sačuvaj živce", "Manje grešaka, manje bacanja novca"];
+const CONTACT_EMAIL = "element.by.mibt@gmail.com";
+const CONTACT_PHONE = "0659080995";
 
 export default function Page() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -211,6 +213,21 @@ export default function Page() {
                   Zakaži BESPLATNE konsultacije (15 min)
                 </a>
                 <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18]/66">Bez obaveze. Konkretno. 15 minuta.</p>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-[#3E332D]/82">
+                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#3B0D18]/62">Kontakt:</span>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="rounded-full border border-[rgba(216,203,184,0.92)] bg-[#F5F1EA]/92 px-3 py-1 font-medium transition-colors hover:bg-[#EFE6D8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  <a
+                    href={`tel:${CONTACT_PHONE}`}
+                    className="rounded-full border border-[rgba(216,203,184,0.92)] bg-[#F5F1EA]/92 px-3 py-1 font-medium transition-colors hover:bg-[#EFE6D8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
+                  >
+                    {CONTACT_PHONE}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
