@@ -18,17 +18,16 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "ÉLÉMENT | Besplatne konsultacije enterijera",
-    template: "%s | ÉLÉMENT",
+    default: "ÉLÉMENT by M·I·B·T | Besplatne konsultacije",
+    template: "%s | ÉLÉMENT by M·I·B·T",
   },
   description:
-    "Odluka pre novca. Prvo vidiš. Onda platiš. 3D vizualizacija prostora pre kupovine.",
+    "Ne uči na svom novcu. Pinterest nije plan. Zakaži besplatne konsultacije (15 min).",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico" },
     ],
-    shortcut: ["/favicon.ico"],
+    shortcut: ["/icon.svg"],
     apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
 };
