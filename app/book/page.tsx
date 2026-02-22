@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 
 const headingFont = Cormorant_Garamond({
@@ -32,6 +32,14 @@ declare global {
 }
 
 export default function BookPage() {
+  const hasRedirectedRef = useRef(false);
+
+  const redirectToThankYou = useCallback(() => {
+    if (hasRedirectedRef.current) return;
+    hasRedirectedRef.current = true;
+    window.location.assign(THANK_YOU_PATH);
+  }, []);
+
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
 
@@ -45,14 +53,6 @@ export default function BookPage() {
   }, []);
 
   useEffect(() => {
-    let hasRedirected = false;
-
-    const redirectToThankYou = () => {
-      if (hasRedirected) return;
-      hasRedirected = true;
-      window.location.assign(THANK_YOU_PATH);
-    };
-
     const hasScheduledEvent = (raw: unknown): boolean => {
       if (typeof raw === "string") {
         if (raw.includes("calendly.event_scheduled")) return true;
@@ -82,7 +82,35 @@ export default function BookPage() {
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [redirectToThankYou]);
+
+  useEffect(() => {
+    const readIframeSrc = () => {
+      const iframe = document.querySelector<HTMLIFrameElement>(".calendly-inline-widget iframe");
+      const src = iframe?.getAttribute("src") ?? "";
+      if (!src) return;
+
+      let decoded = src;
+      try {
+        decoded = decodeURIComponent(src);
+      } catch {
+        decoded = src;
+      }
+
+      if (decoded.includes("calendly.com/url?") || decoded.includes("/thank-you")) {
+        redirectToThankYou();
+      }
+    };
+
+    const observer = new MutationObserver(readIframeSrc);
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["src"] });
+
+    const timer = window.setInterval(readIframeSrc, 1000);
+    return () => {
+      observer.disconnect();
+      window.clearInterval(timer);
+    };
+  }, [redirectToThankYou]);
 
   return (
     <main className={`${bodyFont.className} min-h-screen bg-[#F5F1EA] text-[#3E332D]`}>
