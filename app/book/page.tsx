@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 
 const headingFont = Cormorant_Garamond({
@@ -19,6 +18,7 @@ const bodyFont = Montserrat({
 });
 
 const CALENDLY_BASE_URL = "https://calendly.com/element-by-mibt/bojana";
+const THANK_YOU_PATH = "/thank-you";
 
 declare global {
   interface Window {
@@ -32,10 +32,6 @@ declare global {
 }
 
 export default function BookPage() {
-  const router = useRouter();
-  const calendlyContainerRef = useRef<HTMLDivElement>(null);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-
   const calendlyUrl = useMemo(() => {
     if (typeof window === "undefined") return CALENDLY_BASE_URL;
 
@@ -49,41 +45,58 @@ export default function BookPage() {
   }, []);
 
   useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (event.origin !== "https://calendly.com") return;
-      if (!event.data || typeof event.data !== "object") return;
+    let hasRedirected = false;
 
-      const eventName = (event.data as { event?: string }).event;
-      if (eventName === "calendly.event_scheduled") {
-        router.replace("/thank-you");
+    const redirectToThankYou = () => {
+      if (hasRedirected) return;
+      hasRedirected = true;
+      window.location.assign(THANK_YOU_PATH);
+    };
+
+    const hasScheduledEvent = (raw: unknown): boolean => {
+      if (typeof raw === "string") {
+        if (raw.includes("calendly.event_scheduled")) return true;
+        try {
+          const parsed = JSON.parse(raw);
+          return hasScheduledEvent(parsed);
+        } catch {
+          return false;
+        }
+      }
+
+      if (!raw || typeof raw !== "object") return false;
+      const payload = raw as Record<string, unknown>;
+      const eventName = payload.event;
+      if (typeof eventName === "string" && eventName === "calendly.event_scheduled") return true;
+
+      // Fallback ako Calendly promeni shape payload-a.
+      return JSON.stringify(payload).includes("calendly.event_scheduled");
+    };
+
+    const onMessage = (event: MessageEvent) => {
+      if (!event.origin.includes("calendly.com")) return;
+      if (hasScheduledEvent(event.data)) {
+        redirectToThankYou();
       }
     };
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [router]);
-
-  useEffect(() => {
-    if (!scriptLoaded || !window.Calendly || !calendlyContainerRef.current) return;
-
-    calendlyContainerRef.current.innerHTML = "";
-    window.Calendly.initInlineWidget({
-      url: calendlyUrl,
-      parentElement: calendlyContainerRef.current,
-    });
-  }, [calendlyUrl, scriptLoaded]);
+  }, []);
 
   return (
     <main className={`${bodyFont.className} min-h-screen bg-[#F5F1EA] text-[#3E332D]`}>
       <style jsx global>{`
         @import url("https://assets.calendly.com/assets/external/widget.css");
+
+        .calendly-inline-widget,
+        .calendly-inline-widget iframe {
+          width: 100% !important;
+          height: 100% !important;
+        }
       `}</style>
 
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
-        onLoad={() => setScriptLoaded(true)}
-      />
+      <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
 
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <div className="mb-6 flex items-center justify-between gap-3">
@@ -103,7 +116,9 @@ export default function BookPage() {
 
         <section className="overflow-hidden rounded-3xl border border-[rgba(216,203,184,0.95)] bg-[#F5F1EA] shadow-[0_20px_34px_rgba(62,51,45,0.08)]">
           {/* Real Calendly embed. Kada je termin zakazan, automatski prebacujemo na /thank-you. */}
-          <div ref={calendlyContainerRef} className="h-[760px] w-full" />
+          <div className="h-[72vh] min-h-[640px] w-full md:h-[76vh] md:min-h-[700px]">
+            <div className="calendly-inline-widget h-full w-full" data-url={calendlyUrl} />
+          </div>
         </section>
 
         <p className="mt-4 text-sm text-[#3E332D]/70">
