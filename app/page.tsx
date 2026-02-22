@@ -15,7 +15,7 @@ const bodyFont = Montserrat({
   display: "swap",
 });
 
-const CALENDLY_LINK = "https://calendly.com/element-by-mibt/bojana";
+const BOOKING_LINK = "/book";
 const proofChips = ["Uštedi vreme", "Sačuvaj živce", "Manje grešaka, manje bacanja novca"];
 
 export default function Page() {
@@ -200,12 +200,12 @@ export default function Page() {
                 Saveti sa svih strana deluju sigurno - dok ne potrošiš sav novac i shvatiš da u svom domu nisi zadovoljan.
               </p>
               <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-[#3B0D18] md:text-base">
-                Predupredi greške koje te koštaju <a href={CALENDLY_LINK} className="euro-pop text-[#C9A35D] underline decoration-[#C9A35D]/70 underline-offset-4">10.000€+</a> i vidi kako izgleda tvoj dom iz snova - pre nego što uđeš u njega.
+                Predupredi greške koje te koštaju <a href={BOOKING_LINK} className="euro-pop text-[#C9A35D] underline decoration-[#C9A35D]/70 underline-offset-4">10.000€+</a> i vidi kako izgleda tvoj dom iz snova - pre nego što uđeš u njega.
               </p>
 
               <div className="mt-7">
                 <a
-                  href={CALENDLY_LINK}
+                  href={BOOKING_LINK}
                   className="jump-cta-strong inline-flex min-h-16 min-w-[18.5rem] items-center justify-center rounded-[0.85rem] border border-[#2A0711] bg-[#3B0D18] px-10 py-4 text-center text-[1.03rem] font-semibold tracking-[0.06em] text-[#F5F1EA] transition-all hover:-translate-y-1 hover:shadow-[0_20px_32px_rgba(59,13,24,0.24)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A35D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F5F1EA]"
                 >
                   Zakaži BESPLATNE konsultacije (15 min)
